@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="subtitle">Add note</h1>
+{% if error %}
+<div class="notification is-warning">
+    {{error}}
+</div>
+{% endif %}
+<form method="POST">
+    <div class="form">
+        <div class="field control">
+            <textarea class="textarea" name="note" placeholder="Your note" rows="10"></textarea>
+        </div>
+        <div class="field">
+            <label class="checkbox">
+                <input type="checkbox" name="public">
+                Public note
+            </label>
+        </div>
+        <div class="field">
+        <p class="control">
+            <button class="button is-success" type="submit">
+            Add note
+            </button>
+        </p>
+        </div>
+    </div>
+</form>
+{% endblock %}

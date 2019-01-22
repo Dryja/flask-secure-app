@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Simple and safe webapp</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <style type="text/css">
+        .container {
+            max-width: 800px;
+        }
+        .form {
+            max-width: 300px;
+        }
+    </style>
+  </head>
+  <body>
+  <div class="container">
+  <nav class="tabs">
+        <ul>
+            <li><a href="{{ url_for('index')}}"><b>Simple and safe note webapp</b></a></li>
+            {% if session['email'] %}
+            <li><a href="{{ url_for('add_note')}}">Add note</a></li>
+            <li><a href="{{ url_for('change_password')}}">Change password</a></li>
+            <li><a href="{{ url_for('logout')}}">Logout</a></li>
+            {% else %}
+            <li><a href="{{ url_for('login')}}">Login</a></li>
+            <li><a href="{{ url_for('register')}}">Register</a></li>
+            {% endif %}
+        </ul>
+  </nav>
+  </div>
+  <section class="section">
+    <div class="container">
+        <div class="notification">
+        {% block content %}
+        {% endblock %}
+        </div>
+    </div>
+  </section>
+
+    <style>
+
+  </body>
+</html>

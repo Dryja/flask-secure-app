@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if my_notes or notes%}
+    <h2 class="subtitle">Your notes:</h2>
+    <table class="table is-hoverable">
+      <thead>
+        <tr>
+          <th>First 30 chars of note's content</th>
+          <th>Url</th>
+        </tr>
+      </thead>
+      <tbody>
+    {% for note in my_notes %}
+        <tr>
+          <td>{{ note.content[:30] }}</td>
+          <td><a href="{{ url_for('view_note', note_uuid=note.uuid )}}">Full note</a></td>
+        </tr>
+        
+    {% endfor %}
+      </tbody>
+    </table>
+    <h2 class="subtitle">Notes shared by others to you:</h2>
+    <table class="table is-hoverable">
+      <thead>
+        <tr>
+          <th>First 30 chars of note's content</th>
+          <th>Url</th>
+        </tr>
+      </thead>
+      <tbody>
+    {% for note in other_notes %}
+        <tr>
+          <td>{{ note.content[:30] }}</td>
+          <td><a href="{{ url_for('view_note', note_uuid=note.uuid )}}">Full note</a></td>
+        </tr>
+        
+    {% endfor %}
+      </tbody>
+    </table>
+{% else %}
+<p class="content">
+    Welcome, please login.
+</p>
+{% endif %}
+{% endblock %}

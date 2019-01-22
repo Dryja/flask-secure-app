@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title">Note {{note.uuid}}:</h1>
+<h2 class="subtitle">Created by {{note.email}}</h2>
+<p class="content">
+{{note.content}}
+</p>
+<hr>
+<p>
+{% if note.public %}
+This note is public.
+{% else %}
+This note is private.
+{% endif %}
+</p>
+{% if is_owner %}
+Owner menu
+{% endif %}
+{% endblock %}
