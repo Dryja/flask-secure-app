@@ -7,7 +7,19 @@
     {{error}}
 </div>
 {% endif %}
+<div class="content">
+        <p>A password is considered strong if:</p>
+        <ul>
+        <li>8 characters length or more</li>
+        <li>1 digit or more</li>
+        <li>1 symbol or more</li>
+        <li>1 uppercase letter or more</li>
+        <li>1 lowercase letter or more</li>
+        <li>Password entropy > 2</li>
+        </ul>
+</div>
 <form method="POST">
+    <input name=_csrf_token type=hidden value="{{ csrf_token() }}">
     <div class="form">
         <div class="field">
         <p class="control">

@@ -39,8 +39,16 @@
       </tbody>
     </table>
 {% else %}
+{% if session.id %}
+<p class="content">
+    No notes found.
+</p>
+{% else %}
 <p class="content">
     Welcome, please login.
 </p>
 {% endif %}
+{% endif %}
+
+
 {% endblock %}

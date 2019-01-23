@@ -15,6 +15,37 @@ This note is private.
 {% endif %}
 </p>
 {% if is_owner %}
-Owner menu
+ <h2 class="subtitle">Owner menu:</h2>
+    <table class="table is-hoverable">
+      <thead>
+        <tr>
+          <th>User with access</th>
+          <th>Revoke</th>
+        </tr>
+      </thead>
+      <tbody>
+    {% for user in shared %}
+        <tr>
+          <td>{{ user.email }}</td>
+          <form action="{{ url_for('note_permissions', note_uuid=note.uuid )}}" method="POST">
+            <input name=_csrf_token type=hidden value="{{ csrf_token() }}">
+            <input type="hidden" name="action" value="del">
+            <input type="hidden" name="user" value="{{user.email}}">
+          <td><button class="btn">X</button></td>
+          </form>
+          
+        </tr>
+        
+    {% endfor %}
+      </tbody>
+    </table>
+    <p>Add user:
+                  <form action="{{ url_for('note_permissions', note_uuid=note.uuid )}}" method="POST">
+                  <input name=_csrf_token type=hidden value="{{ csrf_token() }}">
+            <input type="hidden" name="action" value="add">
+            <input type="email" name="user">
+          <button class="btn">+</button>
+          </form>
+    </p>
 {% endif %}
 {% endblock %}
