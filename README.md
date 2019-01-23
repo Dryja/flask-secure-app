@@ -18,4 +18,4 @@ flask run
 ```
 
 ## Uwaga https nie będzie działać na localhoscie. 
-Deploy dostępny na https://od.jamslodki.usermd.net/
+Deploy dostępny na https://od.naprawszybko.pl/
