@@ -5,7 +5,6 @@ import time
 from db import get_db
 from helpers import login_required, generate_csrf_token, check_email, pass_to_hash, WeakPassword
 from flask import Flask, render_template, g, request, redirect, url_for, session, abort
-from flask_sslify import SSLify
 from flask_session import Session  #server-side session storage
 from passlib.hash import pbkdf2_sha256
 
@@ -13,7 +12,6 @@ app = Flask(__name__)
 app.config.from_pyfile('config.cfg', silent=True)
 
 Session(app)
-SSLify(app)
 
 if not app.debug:
     app.config['SESSION_COOKIE_SECURE'] = True

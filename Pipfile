@@ -9,7 +9,6 @@ verify_ssl = true
 flask = "*"
 click = "*"
 passlib = "*"
-flask-sslify = "*"
 flask-session = "*"
 
 [requires]

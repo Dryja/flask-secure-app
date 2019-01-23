@@ -19,4 +19,4 @@ flask run
 
 ## Uwaga https nie będzie działać na localhoscie. 
 
-W celu obejrzenia strony działającej w środowisku produkcyjnym proszę o wejście pod ten adresem https://flask-secure-webapp.herokuapp.com/
+W celu obejrzenia strony działającej w środowisku produkcyjnym proszę o wejście pod ten adresem 
