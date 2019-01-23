@@ -18,5 +18,4 @@ flask run
 ```
 
 ## Uwaga https nie będzie działać na localhoscie. 
-
-W celu obejrzenia strony działającej w środowisku produkcyjnym proszę o wejście pod ten adresem 
+Deploy dostępny na https://od.jamslodki.usermd.net/
