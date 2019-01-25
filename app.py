@@ -27,7 +27,29 @@ def csrf_protect():
             abort(403)
 
 
+#secure headers
+@app.after_request
+def safe_headers(response):
+    response.headers[
+        'Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
+    response.headers[
+        'Content-Security-Policy'] = "default-src 'self'; style-src 'unsafe-inline' https://cdnjs.cloudflare.com"
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+    response.headers['X-XSS-Protection'] = '1; mode=block'
+    return response
+
+
 app.jinja_env.globals['csrf_token'] = generate_csrf_token
+
+
+def unescape(notes):
+    u_notes = []
+    for note in notes:
+        note = dict(note)
+        note['content'] = html.unescape(note['content'])
+        u_notes.append(note)
+    return u_notes
 
 
 @app.route("/")
@@ -37,12 +59,18 @@ def index():
         db = get_db()
         my_notes = db.execute("SELECT * FROM notes WHERE owner=?",
                               (id, )).fetchall()
-
+        my_notes = unescape(my_notes)
         other_notes = db.execute(
             "SELECT * FROM notes_permissions INNER JOIN notes n ON note_id=n.id  WHERE user_id=?",
             (id, )).fetchall()
+        other_notes = unescape(other_notes)
+        login_fails = db.execute("SELECT login_fails FROM users WHERE id=?",
+                                 (id, )).fetchone()
         return render_template(
-            'index.html', my_notes=my_notes, other_notes=other_notes)
+            'index.html',
+            my_notes=my_notes,
+            other_notes=other_notes,
+            login_fails=login_fails['login_fails'])
     return render_template('index.html')
 
 
@@ -68,6 +96,10 @@ def login():
             session['id'] = user['id']
             return redirect(url_for("index"))
         else:
+            db.execute(
+                "UPDATE users SET login_fails = login_fails+1 WHERE id=?",
+                (user['id'], ))
+            db.commit()
             #honesty its just a wrong pass but lets keep it secret
             time.sleep(0.5)  #slow down
             return render_template(
@@ -226,6 +258,8 @@ def view_note(note_uuid):
     note = db.execute(
         "SELECT n.id,n.uuid,n.content,n.owner,n.public,u.email FROM notes n INNER JOIN users u ON owner=u.id WHERE uuid=?",
         (str(note_uuid), )).fetchone()
+    note = dict(note)
+    note['content'] = html.unescape(note['content'])
     is_owner = False
     allowed = False
     shared = None

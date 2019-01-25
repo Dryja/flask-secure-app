@@ -2,6 +2,9 @@
 
 {% block content %}
 {% if my_notes or notes%}
+    <div class="notification is-warning">
+    Liczba nieudanych logowań: {{login_fails}}.
+    </div>
     <h2 class="subtitle">Your notes:</h2>
     <table class="table is-hoverable">
       <thead>

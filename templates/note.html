@@ -28,7 +28,7 @@ This note is private.
         <tr>
           <td>{{ user.email }}</td>
           <form action="{{ url_for('note_permissions', note_uuid=note.uuid )}}" method="POST">
-            <input name=_csrf_token type=hidden value="{{ csrf_token() }}">
+            <input name="_csrf_token" type="hidden" value="{{ csrf_token() }}">
             <input type="hidden" name="action" value="del">
             <input type="hidden" name="user" value="{{user.email}}">
           <td><button class="btn">X</button></td>

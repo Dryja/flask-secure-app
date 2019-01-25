@@ -3,7 +3,8 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
 	`id`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`email`	TEXT UNIQUE,
-	`password`	TEXT
+	`password`	TEXT,
+	`login_fails`	INTEGER DEFAULT 0
 );
 DROP TABLE IF EXISTS `notes_permissions`;
 CREATE TABLE IF NOT EXISTS `notes_permissions` (
